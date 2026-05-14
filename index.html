@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>APRUEBA360CR</title>
+</head>
+
+<body style="font-family:Arial; padding:20px; background:#e3f2fd;">
+
+<div style="text-align:center; background-color:#0d47a1; color:white; padding:20px; border-radius:12px;">
+  <h1>APRUEBA360CR</h1>
+  <h3>Academia de Tercer Ciclo y Bachillerato por Madurez</h3>
+  <p><strong>Tu meta es aprobar. Nuestra misión es ayudarte a lograrlo.</strong></p>
+</div>
+
+<br>
+
+<div style="background:white; padding:15px; border-radius:12px; box-shadow:0 0 8px rgba(0,0,0,0.15);">
+  <p><strong>Déjanos tus datos y te contactamos:</strong></p>
+
+  <input id="nombre" placeholder="Tu nombre" style="padding:10px; width:220px; border-radius:8px; border:1px solid #ccc;">
+  <input id="telefono" placeholder="89718849" style="padding:10px; width:220px; border-radius:8px; border:1px solid #ccc;">
+</div>
+
+<br>
+
+<p><strong>Selecciona una opción o escribe tu consulta:</strong></p>
+
+<button style="background-color:#1976d2; color:white; padding:10px; margin:5px; border:none; border-radius:8px;" onclick="preguntaRapida('Información del tercer ciclo')">Tercer Ciclo</button>
+
+<button style="background-color:#2e7d32; color:white; padding:10px; margin:5px; border:none; border-radius:8px;" onclick="preguntaRapida('Información de bachillerato por madurez')">Bachillerato</button>
+
+<button style="background-color:#f9a825; color:black; padding:10px; margin:5px; border:none; border-radius:8px;" onclick="preguntaRapida('Información de matrícula')">Matrícula</button>
+
+<button style="background-color:#c62828; color:white; padding:10px; margin:5px; border:none; border-radius:8px;" onclick="preguntaRapida('Información de precios')">Precios</button>
+
+<button style="background-color:#25d366; color:white; padding:10px; margin:5px; border:none; border-radius:8px;" onclick="window.open('https://wa.me/506TU_NUMERO','_blank')">WhatsApp Asesor</button>
+
+<br><br>
+
+<div id="chat" style="background:white; border:none; padding:15px; height:360px; overflow-y:auto; border-radius:15px; box-shadow:0px 0px 10px rgba(0,0,0,0.2);">
+</div>
+
+<br>
+
+<input id="mensaje"
+placeholder="Escribe tu pregunta"
+style="width:70%; padding:12px; border-radius:8px; border:1px solid #ccc;"
+onkeypress="if(event.key==='Enter') enviar()">
+
+<button onclick="enviar()" style="padding:12px; border:none; background:#0d47a1; color:white; border-radius:8px;">
+Enviar
+</button>
+
+<script>
+async function enviar(textoManual = null) {
+  const mensaje = textoManual || document.getElementById("mensaje").value;
+  const nombre = document.getElementById("nombre").value;
+  const telefono = document.getElementById("telefono").value;
+
+  if (!mensaje) return;
+
+  agregarMensaje("Tú", mensaje);
+  document.getElementById("mensaje").value = "";
+
+  agregarMensaje("Academia", "Escribiendo...");
+
+  const res = await fetch("/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      nombre: nombre,
+      telefono: telefono,
+      message: mensaje
+    })
+  });
+
+  const data = await res.json();
+
+  const chat = document.getElementById("chat");
+  chat.lastElementChild.remove();
+
+  agregarMensaje("Academia", data.reply);
+}
+
+function preguntaRapida(texto) {
+  enviar(texto);
+}
+
+function agregarMensaje(remitente, texto) {
+  const chat = document.getElementById("chat");
+
+  if (remitente === "Tú") {
+    chat.innerHTML += `
+      <div style="text-align:right; margin:10px;">
+        <span style="background:#1976d2; color:white; padding:10px; border-radius:12px; display:inline-block; max-width:70%;">
+          ${texto}
+        </span>
+      </div>
+    `;
+  } else {
+    chat.innerHTML += `
+      <div style="text-align:left; margin:10px;">
+        <span style="background:#eeeeee; color:black; padding:10px; border-radius:12px; display:inline-block; max-width:70%;">
+          ${texto}
+        </span>
+      </div>
+    `;
+  }
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+window.onload = function() {
+  agregarMensaje("Academia", "¡Hola! Bienvenido a APRUEBA360CR. Te ayudamos con Tercer Ciclo y Bachillerato por Madurez. ¿Qué nivel deseas aprobar?");
+}
+</script>
+
+</body>
+</html>
+Enviado
+Escribir mensaje
+Escribe en
