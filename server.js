@@ -68,7 +68,4 @@ const PUERTO = process.env.PORT || 3000;
 app.listen(PUERTO, () => {
   console.log(Servidor corriendo en puerto ${PUERTO});
 });
-Enviado hace 1 min
-Escribir mensaje
-Escribe en
 
