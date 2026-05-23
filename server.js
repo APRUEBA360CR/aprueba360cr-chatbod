@@ -1,4 +1,3 @@
-
 import express from "express";
 import OpenAI from "openai";
 import dotenv from "dotenv";
@@ -46,10 +45,9 @@ app.post("/charlar", async (req, res) => {
   }
 });
 
-// Nueva ruta webhook que usaremos para conectar WhatsApp externamente de forma gratuita
+// Nueva ruta webhook limpia que usaremos para conectar WhatsApp externamente de forma gratuita
 app.post("/webhook-whatsapp", async (req, res) => {
   try {
-    // Esta ruta recibirá los mensajes de la API externa de WhatsApp
     const mensajeUsuario = req.body.message || req.body.text || "";
     
     const apiResponse = await openai.chat.completions.create({
@@ -70,7 +68,7 @@ const PUERTO = process.env.PORT || 3000;
 app.listen(PUERTO, () => {
   console.log(Servidor corriendo en puerto ${PUERTO});
 });
-Enviado
+Enviado hace 1 min
 Escribir mensaje
 Escribe en
 
