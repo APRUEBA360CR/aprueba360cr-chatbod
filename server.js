@@ -33,7 +33,7 @@ app.post("/webhook-whatsapp", async (req, res) => {
     }
 
     telefonoCliente = telefonoCliente.replace("@c.us", "").trim();
-    console.log(Mensaje del cliente: ${mensajeCliente} | Teléfono: ${telefonoCliente});
+    console.log("Mensaje del cliente:" + mensajeCliente + " | Teléfono: " + telefonoCliente);
 
     const apiResponse = await openai.chat.completions.create({
       model: "gpt-4o-mini",
