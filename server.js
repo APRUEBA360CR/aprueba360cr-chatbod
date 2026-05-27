@@ -25,7 +25,7 @@ app.post("/webhook-whatsapp", async (req, res) => {
 
     const respuesta = completion.choices[0].message.content;
 
-    // URL corregida: verifica que tu INSTANCIA_ID y TOKEN sean exactamente estos
+    
     const urlZapi = "https://api.z-api.io/instances/3F3B7211DB8141B4C96832FB845BEA5C/token/6108C6AB5E8B2ECF2DBDD3D2/send-text";
     
     await axios.post(urlZapi, {
@@ -35,7 +35,7 @@ app.post("/webhook-whatsapp", async (req, res) => {
 
     res.sendStatus(200);
   } catch (e) {
-    // Esto nos mostrará el error real en los logs de Render
+    
     console.error("Error detallado:", e.response?.data || e.message);
     res.sendStatus(500);
   }
