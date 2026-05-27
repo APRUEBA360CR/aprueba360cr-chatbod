@@ -23,6 +23,7 @@ app.post("/webhook-whatsapp", async (req, res) => {
 
     const respuesta = completion.choices[0].message.content;
 
+    // URL corregida: verifica que tu INSTANCIA_ID y TOKEN sean exactamente estos
     const urlZapi = "https://api.z-api.io/instances/3F3B7211DB8141B4C96832FB845BEA5C/token/6108C6AB5E8B2ECF2BDDD3D2/send-text";
     
     await axios.post(urlZapi, {
@@ -32,11 +33,10 @@ app.post("/webhook-whatsapp", async (req, res) => {
 
     res.sendStatus(200);
   } catch (e) {
-    console.error("Error en servidor:", e.message);
+    // Esto nos mostrará el error real en los logs de Render
+    console.error("Error detallado:", e.response?.data || e.message);
     res.sendStatus(500);
   }
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Servidor escuchando en puerto 3000");
-});
+app.listen(process.env.PORT || 3000);
