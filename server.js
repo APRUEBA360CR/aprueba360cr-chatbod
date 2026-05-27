@@ -35,6 +35,9 @@ app.post("/webhook-whatsapp", async (req, res) => {
 }, {
     headers: {
         'client-token': '6108C6AB5E8B2ECF2DBDD3D2'
+          'Content-Type': 'application/json'
+    }
+});
     }
 });
 
