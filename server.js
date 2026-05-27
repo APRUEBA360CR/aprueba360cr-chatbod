@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 const openai = new OpenAI({
-  apiKey: "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"
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 app.post("/webhook-whatsapp", async (req, res) => {
