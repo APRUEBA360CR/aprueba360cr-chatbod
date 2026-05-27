@@ -58,5 +58,3 @@ app.listen(PORT, () => {
   console.log("Servidor de la academia en puerto " + PORT);
 });
 
-Escribir mensaje
-Escribe en
