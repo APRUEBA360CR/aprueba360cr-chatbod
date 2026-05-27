@@ -10,6 +10,8 @@ const openai = new OpenAI({
 });
 
 app.post("/webhook-whatsapp", async (req, res) => {
+   console.log("¡Señal recibida desde Z-API!");
+  console.log("Datos recibidos:", JSON.stringify(req.body));
   try {
     const telefono = req.body.phone || req.body.chatId || "";
     const mensaje = req.body.text?.message || req.body.message || "";
