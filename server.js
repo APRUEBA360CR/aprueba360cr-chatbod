@@ -11,8 +11,6 @@ app.use(express.static("."));
 // CONEXIÓN DIRECTA CON OPENAI
 const openai = new OpenAI({
   apiKey: "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"
-
-
 });
 
 const INSTANCIA_ID = "3F3B7211DB8141B4C96832FB845BEA5C";
@@ -38,7 +36,7 @@ app.post("/webhook-whatsapp", async (req, res) => {
     });
 
     const respuestaIA = apiResponse.choices[0].message.content;
-    console.log("IA contesto correctamente");
+    console.log("IA genero la respuesta para la academia.");
 
     // ENVIAR RESPUESTA A Z-API
     await axios.post(https://api.z-api.io/instances/${INSTANCIA_ID}/token/${ZAPI_TOKEN}/send-text, {
@@ -57,4 +55,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor de la academia en puerto " + PORT);
 });
+
+
 
