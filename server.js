@@ -11,26 +11,32 @@ const openai = new OpenAI({
 
 app.post("/webhook-whatsapp", async (req, res) => {
   try {
-    const { phone, chatId, text } = req.body;
-    const mensajeCliente = text?.message || req.body.message || "";
-    const telefono = phone || chatId || "";
-
-    if (!mensajeCliente) return res.sendStatus(200);
+    const telefono = req.body.phone || req.body.chatId || "";
+    const mensaje = req.body.text?.message || req.body.message || "";
+    
+    if (!mensaje) return res.sendStatus(200);
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: [{ role: "user", content: mensajeCliente }],
+      messages: [{ role: "user", content: mensaje }],
     });
 
-    await axios.post(https://api.z-api.io/instances/3F3B7211DB8141B4C96832FB845BEA5C/token/6108C6AB5E8B2ECF2BDDD3D2/send-text, {
+    const respuesta = completion.choices[0].message.content;
+
+    const urlZapi = "https://api.z-api.io/instances/3F3B7211DB8141B4C96832FB845BEA5C/token/6108C6AB5E8B2ECF2BDDD3D2/send-text";
+    
+    await axios.post(urlZapi, {
       phone: telefono,
-      message: completion.choices[0].message.content
+      message: respuesta
     });
 
     res.sendStatus(200);
   } catch (e) {
+    console.error("Error en servidor:", e.message);
     res.sendStatus(500);
   }
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Servidor escuchando en puerto 3000");
+});
